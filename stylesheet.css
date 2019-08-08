@@ -1,0 +1,77 @@
+body {
+    background-color: beige;
+}
+
+#canvas,
+#video,
+#controlPanel {
+    display: inline-block;
+    vertical-align: top;
+}
+
+#canvas,
+#video {
+    margin-right: 30px;
+    margin-bottom: 30px;
+}
+
+#image,
+#video {
+    display: none;
+}
+
+#video {
+    width: 500px;
+    height: 375px;
+}
+
+#controlPanel>div {
+    margin-bottom: 22px;
+}
+
+label,
+input {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+label {
+    width: 50px;
+}
+
+#red[disabled],
+#green[disabled],
+#blue[disabled] {
+    opacity: 0.5;
+}
+
+#imageButtons {
+    margin-top: 30px;
+}
+
+#invertColors,
+#useCamera {
+    margin-right: 5px;
+}
+
+#file {
+    color: transparent;
+}
+
+#controlPanel #colorEyedropper {
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+#colorDisplay,
+#colorText {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#colorDisplay {
+    width: 50px;
+    height: 50px;
+    border: 1px solid black;
+    margin-right: 15px;
+}

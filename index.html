@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Advanced Photo Editor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    <link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+    <h1>Advanced Photo Editor</h1>
+
+    <canvas id="canvas" width="500" height="375"></canvas>
+    <img id="image" src="photo.jpg">
+    <video id="video"></video>
+
+    <div id="controlPanel">
+        <div>
+            <label for="red">Red:</label>
+            <input id="red" type="range" min="-150" max="150" value="0">
+        </div>
+        <div>
+            <label for="green">Green:</label>
+            <input id="green" type="range" min="-150" max="150" value="0">
+        </div>
+        <div>
+            <label for="blue">Blue:</label>
+            <input id="blue" type="range" min="-150" max="150" value="0">
+        </div>
+
+        <div id="imageButtons">
+            <button id="invertColors">Invert colors</button>
+            <button id="blackAndWhite">Black and white</button>
+        </div>
+
+        <div>
+            <input id="file" type="file">
+        </div>
+
+        <div>
+            <button id="useCamera">Use camera</button>
+            <button id="takePicture" disabled>Take picture</button>
+        </div>
+
+        <div id="colorEyedropper">
+            <strong>Click the picture to extract a pixel's color.</strong>
+        </div>
+
+        <div id="colorDisplay"></div>
+        <div id="colorText"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
