@@ -2,55 +2,61 @@
 <html>
 
 <head>
-    <title>Advanced Photo Editor</title>
-    <meta name="viewport" content="width=device-width, initial-scale=0.5">
-    <link rel="stylesheet" href="stylesheet.css">
+	<title>Advanced Photo Editor</title>
+	<meta name="viewport" content="width=device-width, initial-scale=0.5">
+	<link href="style.css" rel="stylesheet">
+	<script src="script.js" defer>
+
+	</script>
 </head>
 
 <body>
-    <h1>Advanced Photo Editor</h1>
+	<h1>Advanced Photo Editor</h1>
 
-    <canvas id="canvas" width="500" height="375"></canvas>
-    <img id="image" src="photo.jpg">
-    <video id="video"></video>
+	<canvas width="500" height="375" id="canvas"></canvas>
+	<img src="photo.jpg" id="image">
+  <video id="video"></video>
 
-    <div id="controlPanel">
-        <div>
-            <label for="red">Red:</label>
-            <input id="red" type="range" min="-150" max="150" value="0">
-        </div>
-        <div>
-            <label for="green">Green:</label>
-            <input id="green" type="range" min="-150" max="150" value="0">
-        </div>
-        <div>
-            <label for="blue">Blue:</label>
-            <input id="blue" type="range" min="-150" max="150" value="0">
-        </div>
-
-        <div id="imageButtons">
-            <button id="invertColors">Invert colors</button>
-            <button id="blackAndWhite">Black and white</button>
-        </div>
-
-        <div>
-            <input id="file" type="file">
-        </div>
-
-        <div>
-            <button id="useCamera">Use camera</button>
-            <button id="takePicture" disabled>Take picture</button>
-        </div>
-
-        <div id="colorEyedropper">
-            <strong>Click the picture to extract a pixel's color.</strong>
-        </div>
-
-        <div id="colorDisplay"></div>
-        <div id="colorText"></div>
+  <div id="sidePanel">
+    <div class="row">
+      <label>Red</label>
+      <button class="colorButton" id="decreaseRedButton">-</button>
+      <button class="colorButton" id="increaseRedButton">+</button>
     </div>
 
-    <script src="script.js"></script>
+    <div class="row">
+      <label>Green</label>
+      <button class="colorButton" id="decreaseGreenButton">-</button>
+      <button class="colorButton" id="increaseGreenButton">+</button>
+    </div>
+
+    <div class="row">
+      <label>Blue</label>
+      <button class="colorButton" id="decreaseBlueButton">-</button>
+      <button class="colorButton" id="increaseBlueButton">+</button>
+    </div>
+
+    <div class="row">
+      <button id="invertButton">Invert</button>
+      <button id="blackAndWhiteButton">Black and white</button>
+    </div>
+
+    <div class="row">
+      <input type="file" id="file">
+    </div>
+
+    <div class="row" id="cameraControls">
+      <button id="cameraButton">Use camera</button>
+      <button id="pictureButton" disabled>Take picture</button>
+    </div>
+
+    <p class="label">
+      Click the picture to extract a pixel's color.
+    </p>
+    
+    <div id="colorDisplay"></div>
+    <div id="colorParagraph"></div>
+  </div>
 </body>
 
 </html>

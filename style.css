@@ -1,0 +1,76 @@
+body {
+  background-color: beige;
+}
+
+#canvas,
+#video,
+#sidePanel {
+  display: inline-block;
+  vertical-align: top;
+}
+
+#canvas,
+#video {
+  margin-right: 30px;
+  margin-bottom: 20px;
+}
+
+#image,
+#video {
+  display: none;
+}
+
+#video {
+  width: 500px;
+  height: 375px;
+}
+
+.row {
+  margin-bottom: 20px;
+}
+
+label,
+.colorButton {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+label {
+  width: 50px;
+}
+
+.colorButton {
+  font-weight: bold;
+  padding: 5px 10px;
+  margin-right: 5px;
+}
+
+#invertButton,
+#cameraButton {
+  margin-right: 5px;
+}
+
+#file {
+  color: transparent;
+}
+
+#cameraControls {
+  margin-bottom: 30px;
+}
+
+.label {
+  font-weight: bold;
+}
+
+#colorDisplay,
+#colorParagraph {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#colorDisplay {
+  width: 50px;
+  height: 50px;
+  border: 1px solid black;
+  margin-right: 15px;
+}

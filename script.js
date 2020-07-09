@@ -1,201 +1,197 @@
-var canvas = document.getElementById("canvas");
-var context = canvas.getContext("2d");
-var image = document.getElementById("image");
-var video = document.getElementById("video");
+let canvas = document.getElementById(`canvas`)
+let image = document.getElementById(`image`)
+let video = document.getElementById(`video`)
+let context = canvas.getContext(`2d`)
 
-var redInput = document.getElementById("red");
-var greenInput = document.getElementById("green");
-var blueInput = document.getElementById("blue");
-var invertColorsButton = document.getElementById("invertColors");
-var blackAndWhiteButton = document.getElementById("blackAndWhite");
-var fileInput = document.getElementById("file");
-var useCameraButton = document.getElementById("useCamera");
-var takePictureButton = document.getElementById("takePicture");
-var colorDisplay = document.getElementById("colorDisplay");
-var colorText = document.getElementById("colorText");
+let decreaseRedButton = document.getElementById(`decreaseRedButton`)
+let increaseRedButton = document.getElementById(`increaseRedButton`)
+let decreaseGreenButton = document.getElementById(`decreaseGreenButton`)
+let increaseGreenButton = document.getElementById(`increaseGreenButton`)
+let decreaseBlueButton = document.getElementById(`decreaseBlueButton`)
+let increaseBlueButton = document.getElementById(`increaseBlueButton`)
 
-var width;
-var height;
-var offsetX;
-var offsetY;
-var original;
+let invertButton = document.getElementById(`invertButton`)
+let blackAndWhiteButton = document.getElementById(`blackAndWhiteButton`)
+let file = document.getElementById(`file`)
+let cameraButton = document.getElementById(`cameraButton`)
+let pictureButton = document.getElementById(`pictureButton`)
+let colorDisplay = document.getElementById(`colorDisplay`)
+let colorParagraph = document.getElementById(`colorParagraph`)
 
-canvas.addEventListener("click", getColor);
-redInput.addEventListener("input", changeRed);
-greenInput.addEventListener("input", changeGreen);
-blueInput.addEventListener("input", changeBlue);
-invertColorsButton.addEventListener("click", invertColors);
-blackAndWhiteButton.addEventListener("click", blackAndWhite);
-fileInput.addEventListener("input", chooseFile);
-useCameraButton.addEventListener("click", useCamera);
-takePictureButton.addEventListener("click", takePicture);
+decreaseRedButton.addEventListener(`click`, decreaseRed)
+increaseRedButton.addEventListener(`click`, increaseRed)
+decreaseGreenButton.addEventListener(`click`, decreaseGreen)
+increaseGreenButton.addEventListener(`click`, increaseGreen)
+decreaseBlueButton.addEventListener(`click`, decreaseBlue)
+increaseBlueButton.addEventListener(`click`, increaseBlue)
 
-drawImage();
-image.addEventListener("load", drawImage);
+invertButton.addEventListener(`click`, invert)
+blackAndWhiteButton.addEventListener(`click`, blackAndWhite)
+canvas.addEventListener(`click`, showColor)
+file.addEventListener(`input`, chooseFile)
+cameraButton.addEventListener(`click`, useCamera)
+pictureButton.addEventListener(`click`, takePicture)
+
+drawImage()
+image.addEventListener(`load`, drawImage)
 
 function drawImage() {
-    if (image.width || image.videoWidth) {
-        if (image.videoWidth) {
-            width = image.videoWidth;
-            height = image.videoHeight;
-        }
-        else if (image.width > image.height) {
-            width = Math.min(image.width, canvas.width);
-            height = width * image.height / image.width;
-        }
-        else {
-            height = Math.min(image.height, canvas.height);
-            width = height * image.width / image.height;
-        }
+  if (image.width || image.videoWidth) {
+    let width
+    let height
 
-        offsetX = (canvas.width - width) / 2;
-        offsetY = (canvas.height - height) / 2;
-
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        context.drawImage(image, offsetX, offsetY, width, height);
-        setOriginal();
+    if (image.videoWidth) {
+      width = image.videoWidth
+      height = image.videoHeight
     }
-}
-
-function getColor(event) {
-    var imageData = context.getImageData(event.offsetX, event.offsetY, 1, 1);
-    var pixels = imageData.data;
-
-    colorDisplay.style.backgroundColor = "rgb(" + pixels[0] + ", " + pixels[1] + ", " + pixels[2] + ")";
-    colorText.innerHTML = "rgb(" + pixels[0] + ", " + pixels[1] + ", " + pixels[2] + ")";
-}
-
-function changeRed() {
-    var imageData = context.getImageData(offsetX, offsetY, width, height);
-    var pixels = imageData.data;
-    var red = parseInt(redInput.value, 10);
-
-    for (var i = 0; i < pixels.length; i += 4) {
-        pixels[i] = original[i] + red;
+    else if (image.width > image.height) {
+      width = Math.min(image.width, canvas.width)
+      height = width * (image.height / image.width)
+    }
+    else {
+      height = Math.min(image.height, canvas.height)
+      width = height * (image.width / image.height)
     }
 
-    context.putImageData(imageData, offsetX, offsetY);
+    let offsetX = (canvas.width - width) / 2
+    let offsetY = (canvas.height - height) / 2
+
+    context.clearRect(0, 0, canvas.width, canvas.height)
+    context.drawImage(image, offsetX, offsetY, width, height)
+  }
 }
 
-function changeGreen() {
-    var imageData = context.getImageData(offsetX, offsetY, width, height);
-    var pixels = imageData.data;
-    var green = parseInt(greenInput.value, 10);
-
-    for (var i = 0; i < pixels.length; i += 4) {
-        pixels[i + 1] = original[i + 1] + green;
-    }
-
-    context.putImageData(imageData, offsetX, offsetY);
+function decreaseRed() {
+  changeColor(0, -10)
 }
 
-function changeBlue() {
-    var imageData = context.getImageData(offsetX, offsetY, width, height);
-    var pixels = imageData.data;
-    var blue = parseInt(blueInput.value, 10);
-
-    for (var i = 0; i < pixels.length; i += 4) {
-        pixels[i + 2] = original[i + 2] + blue;
-    }
-
-    context.putImageData(imageData, offsetX, offsetY);
+function increaseRed() {
+  changeColor(0, 10)
 }
 
-function invertColors() {
-    var imageData = context.getImageData(offsetX, offsetY, width, height);
-    var pixels = imageData.data;
+function decreaseGreen() {
+  changeColor(1, -10)
+}
 
-    for (var i = 0; i < pixels.length; i += 4) {
-        pixels[i] = 255 - pixels[i];
-        pixels[i + 1] = 255 - pixels[i + 1];
-        pixels[i + 2] = 255 - pixels[i + 2];
-    }
+function increaseGreen() {
+  changeColor(1, 10)
+}
 
-    context.putImageData(imageData, offsetX, offsetY);
-    setOriginal();
+function decreaseBlue() {
+  changeColor(2, -10)
+}
+
+function increaseBlue() {
+  changeColor(2, 10)
+}
+
+function changeColor(index, amount) {
+  let imageData = context.getImageData(0, 0, canvas.width, canvas.height)
+
+  for (let i = index; i < imageData.data.length; i += 4) {
+    imageData.data[i] += amount
+  }
+
+  context.putImageData(imageData, 0, 0)
+}
+
+function invert() {
+  let imageData = context.getImageData(0, 0, canvas.width, canvas.height)
+
+  for (let i = 0; i < imageData.data.length; i += 4) {
+    imageData.data[i] = 255 - imageData.data[i]
+    imageData.data[i + 1] = 255 - imageData.data[i + 1]
+    imageData.data[i + 2] = 255 - imageData.data[i + 2]
+  }
+
+  context.putImageData(imageData, 0, 0)
 }
 
 function blackAndWhite() {
-    var imageData = context.getImageData(offsetX, offsetY, width, height);
-    var pixels = imageData.data;
+  let imageData = context.getImageData(0, 0, canvas.width, canvas.height)
 
-    for (var i = 0; i < pixels.length; i += 4) {
-        var averageColor = (pixels[i] + pixels[i + 1] + pixels[i + 2]) / 3;
+  for (let i = 0; i < imageData.data.length; i += 4) {
+    let sum = imageData.data[i] + imageData.data[i + 1] + imageData.data[i + 2]
+    let average = sum / 3
 
-        pixels[i] = averageColor;
-        pixels[i + 1] = averageColor;
-        pixels[i + 2] = averageColor;
-    }
+    imageData.data[i] = average
+    imageData.data[i + 1] = average
+    imageData.data[i + 2] = average
+  }
 
-    context.putImageData(imageData, offsetX, offsetY);
-    setOriginal();
+  context.putImageData(imageData, 0, 0)
+}
+
+function showColor(event) {
+  let x = event.offsetX
+  let y = event.offsetY
+
+  let imageData = context.getImageData(x, y, 1, 1)
+  let rgba = imageData.data
+
+  colorDisplay.style.backgroundColor = `rgb(${rgba[0]}, ${rgba[1]}, ${rgba[2]})`
+  colorParagraph.innerHTML = colorDisplay.style.backgroundColor
 }
 
 function chooseFile() {
-    var reader = new FileReader();
-    reader.addEventListener("load", loadFile);
+  let reader = new FileReader()
+  reader.addEventListener(`load`, loadFile)
 
-    if (this.files[0]) {
-        reader.readAsDataURL(this.files[0]);
-    }
+  if (this.files[0]) {
+    reader.readAsDataURL(this.files[0])
+  }
 }
 
 function loadFile() {
-    image = document.getElementById("image");
-    image.src = this.result;
+  image = document.getElementById(`image`)
+  image.src = this.result
 }
 
 function useCamera() {
-    window.navigator.mediaDevices.getUserMedia({
-        video: {
-            width: canvas.width,
-            height: canvas.height
-        }
-    }).then(showVideo);
+  window.navigator.mediaDevices.getUserMedia({
+    video: {
+      width: canvas.width,
+      height: canvas.height
+    }
+  }).then(streamWebcamToVideo)
 }
 
-function showVideo(stream) {
-    redInput.disabled = true;
-    greenInput.disabled = true;
-    blueInput.disabled = true;
-    invertColorsButton.disabled = true;
-    blackAndWhiteButton.disabled = true;
-    fileInput.disabled = true;
-    useCameraButton.disabled = true;
-    takePictureButton.disabled = false;
+function streamWebcamToVideo(stream) {
+  decreaseRedButton.disabled = true
+  increaseRedButton.disabled = true
+  decreaseGreenButton.disabled = true
+  increaseGreenButton.disabled = true
+  decreaseBlueButton.disabled = true
+  increaseBlueButton.disabled = true
 
-    canvas.style.display = "none";
-    video.style.display = "initial";
-    video.srcObject = stream;
-    video.play();
+  invertButton.disabled = true
+  blackAndWhiteButton.disabled = true
+  file.disabled = true
+  cameraButton.disabled = true
+  pictureButton.disabled = false
+
+  canvas.style.display = `none`
+  video.style.display = `inline-block`
+  video.srcObject = stream
+  video.play()
 }
 
 function takePicture() {
-    redInput.disabled = false;
-    greenInput.disabled = false;
-    blueInput.disabled = false;
-    invertColorsButton.disabled = false;
-    blackAndWhiteButton.disabled = false;
-    fileInput.disabled = false;
-    useCameraButton.disabled = false;
-    takePictureButton.disabled = true;
+  decreaseRedButton.disabled = false
+  increaseRedButton.disabled = false
+  decreaseGreenButton.disabled = false
+  increaseGreenButton.disabled = false
+  decreaseBlueButton.disabled = false
+  increaseBlueButton.disabled = false
 
-    video.style.display = "none";
-    canvas.style.display = "initial";
-    image = video;
-    drawImage();
-}
+  invertButton.disabled = false
+  blackAndWhiteButton.disabled = false
+  file.disabled = false
+  cameraButton.disabled = false
+  pictureButton.disabled = true
 
-function setOriginal() {
-    original = [];
-    var imageData = context.getImageData(offsetX, offsetY, width, height);
-    var pixels = imageData.data;
-
-    for (var i = 0; i < pixels.length; i++) {
-        original[i] = pixels[i];
-    }
-
-    redInput.value = 0;
-    greenInput.value = 0;
-    blueInput.value = 0;
+  canvas.style.display = `inline-block`
+  video.style.display = `none`
+  image = video
+  drawImage()
 }
