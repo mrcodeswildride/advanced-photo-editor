@@ -43,12 +43,10 @@ function drawImage() {
     if (image.videoWidth) {
       width = image.videoWidth
       height = image.videoHeight
-    }
-    else if (image.width > image.height) {
+    } else if (image.width > image.height) {
       width = Math.min(image.width, canvas.width)
       height = width * (image.height / image.width)
-    }
-    else {
+    } else {
       height = Math.min(image.height, canvas.height)
       width = height * (image.width / image.height)
     }
@@ -148,12 +146,14 @@ function loadFile() {
 }
 
 function useCamera() {
-  window.navigator.mediaDevices.getUserMedia({
-    video: {
-      width: canvas.width,
-      height: canvas.height
-    }
-  }).then(streamWebcamToVideo)
+  window.navigator.mediaDevices
+    .getUserMedia({
+      video: {
+        width: canvas.width,
+        height: canvas.height,
+      },
+    })
+    .then(streamWebcamToVideo)
 }
 
 function streamWebcamToVideo(stream) {

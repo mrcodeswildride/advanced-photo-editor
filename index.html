@@ -1,62 +1,56 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <title>Advanced Photo Editor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=0.65" />
+    <link href="style.css" rel="stylesheet" />
+    <script src="script.js" defer></script>
+  </head>
 
-<head>
-	<title>Advanced Photo Editor</title>
-	<meta name="viewport" content="width=device-width, initial-scale=0.4">
-	<link href="style.css" rel="stylesheet">
-	<script src="script.js" defer>
+  <body>
+    <h1>Advanced Photo Editor</h1>
 
-	</script>
-</head>
+    <canvas width="500" height="375" id="canvas"></canvas>
+    <img src="photo.jpg" id="image" />
+    <video id="video"></video>
 
-<body>
-	<h1>Advanced Photo Editor</h1>
+    <div id="sidePanel">
+      <div class="row">
+        <label>Red</label>
+        <button class="colorButton" id="decreaseRedButton">-</button>
+        <button class="colorButton" id="increaseRedButton">+</button>
+      </div>
 
-	<canvas width="500" height="375" id="canvas"></canvas>
-	<img src="photo.jpg" id="image">
-  <video id="video"></video>
+      <div class="row">
+        <label>Green</label>
+        <button class="colorButton" id="decreaseGreenButton">-</button>
+        <button class="colorButton" id="increaseGreenButton">+</button>
+      </div>
 
-  <div id="sidePanel">
-    <div class="row">
-      <label>Red</label>
-      <button class="colorButton" id="decreaseRedButton">-</button>
-      <button class="colorButton" id="increaseRedButton">+</button>
+      <div class="row">
+        <label>Blue</label>
+        <button class="colorButton" id="decreaseBlueButton">-</button>
+        <button class="colorButton" id="increaseBlueButton">+</button>
+      </div>
+
+      <div class="row">
+        <button id="invertButton">Invert</button>
+        <button id="blackAndWhiteButton">Black and white</button>
+      </div>
+
+      <div class="row">
+        <input type="file" id="file" />
+      </div>
+
+      <div class="row" id="cameraControls">
+        <button id="cameraButton">Use camera</button>
+        <button id="pictureButton" disabled>Take picture</button>
+      </div>
+
+      <p class="label">Click the picture to extract a pixel's color.</p>
+
+      <div id="colorDisplay"></div>
+      <div id="colorParagraph"></div>
     </div>
-
-    <div class="row">
-      <label>Green</label>
-      <button class="colorButton" id="decreaseGreenButton">-</button>
-      <button class="colorButton" id="increaseGreenButton">+</button>
-    </div>
-
-    <div class="row">
-      <label>Blue</label>
-      <button class="colorButton" id="decreaseBlueButton">-</button>
-      <button class="colorButton" id="increaseBlueButton">+</button>
-    </div>
-
-    <div class="row">
-      <button id="invertButton">Invert</button>
-      <button id="blackAndWhiteButton">Black and white</button>
-    </div>
-
-    <div class="row">
-      <input type="file" id="file">
-    </div>
-
-    <div class="row" id="cameraControls">
-      <button id="cameraButton">Use camera</button>
-      <button id="pictureButton" disabled>Take picture</button>
-    </div>
-
-    <p class="label">
-      Click the picture to extract a pixel's color.
-    </p>
-    
-    <div id="colorDisplay"></div>
-    <div id="colorParagraph"></div>
-  </div>
-</body>
-
+  </body>
 </html>
